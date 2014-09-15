@@ -1,7 +1,8 @@
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
     "": "postsIndex",
-    "posts/:id": "postsShow"
+    "posts/:id": "postsShow",
+    "posts/:id/edit": "postsEdit"
   },
   
   initialize: function ($el) {
@@ -27,6 +28,18 @@ App.Routers.AppRouter = Backbone.Router.extend({
       });
     
       router._swapView(showView);
+    });
+  },
+  
+  postsEdit: function (id) {
+    var router = this;
+    
+    App.Collections.posts.getOrFetch(id, function (model) {
+      var editView = new App.Views.PostsForm({
+        model: model
+      });
+      
+      router._swapView(editView);
     });
   },
   

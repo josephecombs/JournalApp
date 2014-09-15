@@ -5,8 +5,16 @@ window.App = {
   Routers: {},
   
   initialize: function($el) {
+    this.$el = $el;
+    
     App.Routers.appRouter = new App.Routers.AppRouter($el);
     Backbone.history.start();
+  },
+  
+  errors: function (messages) {
+    messages.forEach(function (message) {
+      App.$el.prepend($('<p>').addClass("error").html(message));
+    });
   }
 };
 

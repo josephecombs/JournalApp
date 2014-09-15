@@ -1,0 +1,12 @@
+<h2>PostsForm</h2>
+
+<form class="posts-form">
+  <input type="hidden" name="post[id]" value="<%= post.id %>" id="">
+  <input type="text" name="post[title]" value="<%= post.escape("title")%>" id="">
+  <br>
+
+  <textarea name="post[body]" id=""><%= post.escape("body")%></textarea>
+  <br>
+
+  <button type="submit" class="form-submit">Update Post</button>
+</form>
