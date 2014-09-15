@@ -13,3 +13,8 @@
  *= require_tree .
  *= require_self
  */
+
+button.delete-post {
+  background-color: salmon;
+  border-radius: 3px;
+}
