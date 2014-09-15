@@ -1,9 +1,11 @@
 <h2>Posts Index</h2>
 
+
 <ul>
 <% posts.each( function (post) {%>
   <li>
-    <%= post.title %>
+    <%= post.escape("title") %>
+    <button class="delete-post" data-id="<%= post.id %>">Delete</button>
   </li>
 <% }) %>
 </ul>

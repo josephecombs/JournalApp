@@ -3,7 +3,9 @@ window.App = {
   Collections: {},
   Views: {},
   Routers: {},
+  
   initialize: function() {
+    App.Collections.posts.fetch();
   }
 };
 
