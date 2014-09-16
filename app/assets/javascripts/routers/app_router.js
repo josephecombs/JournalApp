@@ -6,8 +6,9 @@ App.Routers.AppRouter = Backbone.Router.extend({
     "posts/:id/edit": "postsEdit"
   },
   
-  initialize: function ($el) {
-    this.$el = $el;
+  initialize: function ($sidebar, $content) {
+    this.$sidebar = $sidebar;
+    this.$content = $content;
   },
   
   postsIndex: function () {
@@ -17,7 +18,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
       collection: App.Collections.posts
     });
     
-    this._swapView(indexView);
+    this._swapViewSidebar(indexView);
   },
   
   postsShow: function (id) {
@@ -28,7 +29,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
         model: model
       });
     
-      router._swapView(showView);
+      router._swapViewContent(showView);
     });
   },
   
@@ -40,7 +41,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
         model: model
       });
       
-      router._swapView(editView);
+      router._swapViewContent(editView);
     });
   },
   
@@ -52,11 +53,20 @@ App.Routers.AppRouter = Backbone.Router.extend({
       collection: App.Collections.posts
     });
     
-    this._swapView(newView);
+    this._swapViewContent(newView);
   },
   
-  _swapView: function (newView) {
-    App.$el.children(".error").remove();
-    this.$el.html(newView.render().$el);
+  _swapViewSidebar: function (newView) {
+    this._swapView(this.$sidebar, newView);
+  },
+  
+  _swapViewContent: function (newView) {
+    this._swapView(this.$content, newView);
+  },
+  
+  _swapView: function ($el, newView) {
+    App.$el.find(".error").remove();
+    
+    $el.html(newView.render().$el);
   }
 });

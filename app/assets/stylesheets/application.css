@@ -14,6 +14,16 @@
  *= require_self
  */
 
+.sidebar {
+  float: left;
+  display: inline-block;
+  width: 300px;
+}
+
+.content {
+  display: inline-block;
+}
+
 button.delete-post {
   background-color: salmon;
   border-radius: 3px;

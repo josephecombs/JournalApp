@@ -25,11 +25,13 @@ App.Views.PostsForm = Backbone.View.extend({
       this.collection.create(json,{
         success: Backbone.history.navigate.bind( Backbone.history, "", true),
         error: function (model, response, options) {
+          that.collection.remove(model);
           Backbone.history.navigate("posts/new", true);
           App.errors(response.responseJSON);
         }
       });
     } else {
+      //update case
       this.model.save(json, {
         success: Backbone.history.navigate.bind( Backbone.history, "", true),
         error: function (model, response, options) {
