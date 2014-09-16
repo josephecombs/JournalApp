@@ -12,6 +12,7 @@ window.App = {
   },
   
   errors: function (messages) {
+    this.$el.children(".error").remove();
     messages.forEach(function (message) {
       App.$el.prepend($('<p>').addClass("error").html(message));
     });

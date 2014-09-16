@@ -8,25 +8,38 @@ App.Views.PostsForm = Backbone.View.extend({
   clickFormSubmit: function (event) {
     event.preventDefault();
     
+    var that = this;
     var json = $('.posts-form').serializeJSON();
-    var post = new App.Models.Post(json.post);
     var router = App.Routers.appRouter;
     
-    var editSaveOptions = {
-      success: router.postsIndex.bind(router),
-      error: function (model, response, options) {
-        router.postsEdit(post.id);
-
-        App.errors(response.responseJSON);
-      }
-    };
+    // var editSaveOptions = {
+    //   success: Backbone.history.navigate.bind({}, "posts", true),
+    //   error: function (model, response, options) {
+    //     Backbone.history.navigate.bind({}, "posts/" + json.id + "/")
+    //
+    //     App.errors(response.responseJSON);
+    //   }
+    // };
     
-    if (post.isNew) {
-      this.collection.create(json, editSaveOptions);
+    if (this.model.isNew()) {
+      this.collection.create(json,{
+        success: Backbone.history.navigate.bind( Backbone.history, "", true),
+        error: function (model, response, options) {
+          Backbone.history.navigate("posts/new", true);
+          App.errors(response.responseJSON);
+        }
+      });
     } else {
-      post.save({}, editSaveOptions);
+      this.model.save(json, {
+        success: Backbone.history.navigate.bind( Backbone.history, "", true),
+        error: function (model, response, options) {
+          Backbone.history.navigate("posts/" + json.id + "/edit", true);
+          App.errors(response.responseJSON);
+        }
+      });
     }
   },
+  
   
   render: function () {
     var view = this;

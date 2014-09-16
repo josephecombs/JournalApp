@@ -1,8 +1,8 @@
 App.Routers.AppRouter = Backbone.Router.extend({
   routes: {
-    "": "postsIndex",
-    "posts/new": "postsNew",
-    "posts/:id": "postsShow",
+    "":               "postsIndex",
+    "posts/new":      "postsNew",
+    "posts/:id":      "postsShow",
     "posts/:id/edit": "postsEdit"
   },
   
@@ -46,7 +46,6 @@ App.Routers.AppRouter = Backbone.Router.extend({
   
   postsNew: function () {
     var post = new App.Models.Post();
-    
 
     var newView = new App.Views.PostsForm({
       model: post,
@@ -57,6 +56,7 @@ App.Routers.AppRouter = Backbone.Router.extend({
   },
   
   _swapView: function (newView) {
+    App.$el.children(".error").remove();
     this.$el.html(newView.render().$el);
   }
 });
